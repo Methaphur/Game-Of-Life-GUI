@@ -10,7 +10,8 @@ In each iteration or generation of the game, cells may die or become alive depen
 
 
 # Instructions
-- Click `R` to Randomly Select Cells in the board 
+- Click `E` to Randomly update cell state of cells in the board
+- Click `R` to Reset board to last set board 
 - Click `C` to Clear the Board
 - Click `Space` to Pause/Play the Simulation
 - Click any cell to Change it's current state
