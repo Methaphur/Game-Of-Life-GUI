@@ -2,7 +2,7 @@ import pygame
 import numpy as np
 
 # Constants
-cell_size = 7
+cell_size = 10
 grid_color = (150, 150, 150)
 alive = (255, 255, 0)
 bg_color = (0, 0, 0)
@@ -44,13 +44,14 @@ def main():
     pygame.init()
 
     # Seting up the screen
-    rows, cols = 100, 100
+    rows, cols = 120, 120
     width, height = cols * cell_size, rows * cell_size
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Game of Life")
 
     # Initial grid
     grid = create_grid(rows, cols)
+    init_grid = grid.copy()
 
     # Game loop
     running = True
@@ -77,9 +78,13 @@ def main():
                     grid = create_grid(rows, cols)
                 
                 # Randomly filling the board (30% probability of cell being alive)
-                elif event.key == pygame.K_r:
-                    grid = np.random.choice([False, True], size=(rows, cols), p=[0.7, 0.3])
+                elif event.key == pygame.K_e:
+                    grid = np.random.choice([False, True], size=(rows, cols), p=[0.6, 0.4])
             
+                # Resets to last set board:
+                elif event.key == pygame.K_r:
+                    grid = init_grid
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if not paused:
                     continue
@@ -90,7 +95,7 @@ def main():
                 if 0 <= row < rows and 0 <= col < cols:
                     # Reversing the current cell state on click
                     grid[row, col] = not grid[row, col]
-
+                init_grid = grid
         # Update the grid
         if not paused:
             grid = update_grid(grid)
